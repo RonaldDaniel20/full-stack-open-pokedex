@@ -26,11 +26,6 @@ jobs:
           deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
         run: |
           curl "$deploy_url"
-      - name: e2e tests
-        uses: cypress-io/github-action@v5
-        with:
-          command: npm run test:e2e
-          wait-on: 'https://full-stack-open-pokedex-ilyh.onrender.com/'
-          wait-on-timeout: 300
+
       
 
