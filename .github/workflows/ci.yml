@@ -29,6 +29,24 @@ jobs:
           deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
         run: |
           curl "$deploy_url"
+          
+  tag_release:
+    if: github.ref == 'refs/heads/main'
+    needs: [ci]
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.merge_commit_sha }}
+          fetch-depth: '0'
+
+      - name: create tag_release
+        uses: anothrNick/github-tag-action@1.64.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch
+          TAG_PREFIX: v
+
 
       
 
