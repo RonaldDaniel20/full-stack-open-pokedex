@@ -24,14 +24,14 @@ jobs:
         run: npm run test
       - name: Deploy
         # Only run this step if the branch is main
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main' && !contains(join(github.event.commits.*.message, ' '), '#skip')
         env:
           deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
         run: |
           curl "$deploy_url"
           
   tag_release:
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' && !contains(join(github.event.commits.*.message, ' '), '#skip')
     needs: [ci]
     runs-on: ubuntu-latest
     steps: 
