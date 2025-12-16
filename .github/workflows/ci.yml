@@ -31,6 +31,6 @@ jobs:
         with:
           command: npm run test:e2e
           wait-on: 'https://full-stack-open-pokedex-ilyh.onrender.com/'
-          wait-on-timeout: 120
+          wait-on-timeout: 300
       
 
